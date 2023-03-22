@@ -10,9 +10,10 @@ services:
     expose:
       - 5432
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_HOST_AUTH_METHOD="trust"
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
     volumes:
       - database:/var/lib/postgresql/data/
     env_file:
@@ -20,6 +21,9 @@ services:
 
   web:
     build: ../uptrader/
+    command: python manage.py runserver localhost:8000
+    ports:
+      - "8000:8000"
     container_name: backend
     restart: always
     volumes:
