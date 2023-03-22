@@ -1,3 +1,11 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Menu
+
+
+@admin.register(Menu)
+class AdminMenu(admin.ModelAdmin):
+    list_display = ('name',
+                    'url',
+                    'named_url')
+    ordering = ('-name',)
